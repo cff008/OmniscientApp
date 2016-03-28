@@ -144,8 +144,26 @@ angular.module('app.routes', ['ionicUIRouter'])
     }
   })
 
-$urlRouterProvider.otherwise('/page8')
+  .state('tabsController.post', {
+    url: '/page17',
+    views: {
+      'tab2': {
+        templateUrl: 'templates/post.html',
+        controller: 'postCtrl'
+      }
+    }
+  })
 
-  
+  .state('tabsController.postMessage', {
+    url: '/page18',
+    views: {
+      'tab4': {
+        templateUrl: 'templates/postMessage.html',
+        controller: 'postMessageCtrl'
+      }
+    }
+  })
+
+$urlRouterProvider.otherwise('/page8') 
 
 });
