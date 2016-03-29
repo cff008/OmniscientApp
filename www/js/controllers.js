@@ -72,7 +72,7 @@ angular.module('app.controllers', ['ionic'])
         $ionicActionSheet.hide();
       },
       buttonClicked: function(index) {
-        $state.go('tabsController.postMessage');
+        $state.go('postMessage');
         $ionicActionSheet.hide();
         return true;
       }

@@ -154,14 +154,10 @@ angular.module('app.routes', ['ionicUIRouter'])
     }
   })
 
-  .state('tabsController.postMessage', {
+  .state('postMessage', {
     url: '/page18',
-    views: {
-      'tab4': {
-        templateUrl: 'templates/postMessage.html',
-        controller: 'postMessageCtrl'
-      }
-    }
+    templateUrl: 'templates/postMessage.html',
+    controller: 'postMessageCtrl'
   })
 
 $urlRouterProvider.otherwise('/page8') 
