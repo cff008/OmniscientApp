@@ -1,40 +1,47 @@
 <ion-view title="Chat">
-    <ion-content overflow-scroll="true" padding="false" style="background: url(img/QYPhwLqRRN2QcdQKkLM3_dots.jpg) no-repeat center;" class="has-header">
+  <ion-side-menus>
+    <!-- Messages for selected chat group -->
+    <ion-side-menu-content>
+      <ion-header-bar class="bar bar-subheader">
+        <button class="button button-icon" ng-click="toggleGroups()">
+          <i class="icon ion-navicon"></i>
+        </button>
+        <h2 class="title">{{activeGroup.name}}</h2>
+      </ion-header-bar>
+      <ion-content scroll="false" overflow-scroll="true" padding="false" style="background: url(img/DyFaWZm0Q466F3sSCrcx_background.png) no-repeat center;" class="has-header">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="search" placeholder="Search Messages">
+        </label>
         <ion-list>
-            <label class="item item-input">
-                <i class="icon ion-search placeholder-icon"></i>
-                <input type="search" placeholder="Search Messages">
-            </label>
-            <ion-item class="item-thumbnail-left" ui-sref="tabsController.nigelHayes">
-                <img src="img/Boc83lhjQNq0NXuhM6sl_nigel.jpg">
-                <h2>Nigel Hayes</h2>
-                <p>I think we need to change the meth</p>
-            </ion-item>
-            <ion-item class="item-thumbnail-left">
-                <img src="img/AKScFVblSK5iHpV6pstq_Drawing.png">
-                <h2>CS506 Project 1</h2>
-                <p>Is everyone's GitHub accounts wo</p>
-            </ion-item>
-            <ion-item class="item-thumbnail-left">
-                <img src="img/1OqyVb4XQz6WYCPraFqR_Lab.jpg">
-                <h2>Matt Shi</h2>
-                <p>I believe it is due one week from</p>
-            </ion-item>
-            <ion-item class="item-thumbnail-left">
-                <img src="img/8607Y3KSIStiNw1U9Dom_tracy.jpg">
-                <h2>CS570 Full Class Chat</h2>
-                <p>We have a quiz tomorrow.</p>
-            </ion-item>
-            <ion-item class="item-thumbnail-left">
-                <img src="img/tklIc2TaTMGodAGytjz7_Barry.jpg">
-                <h2>Taylor Johnston</h2>
-                <p>I'll meet you in the CS lobby at 5</p>
-            </ion-item>
-            <ion-item class="item-thumbnail-left">
-                <img src="img/5uhMge7TTyenmgf0lnzl_Tiki.jpg">
-                <h2>Tiki Barber</h2>
-                <p>I think Node.JS will work better than Angular</p>
-            </ion-item>
+          <ion-item ng-repeat="message in activeGroup.messages" ng-click="selectMessage(message, $index)" ng-class="{active: activeMessage == message}">
+            <button class="button button-calm" ng-click="followUp(message)">
+              <i class="icon ion-navicon"></i>
+            </button>
+            {{message.user}}: {{message.content}}
+          </ion-item>
         </ion-list>
-    </ion-content>
+      </ion-content>
+    </ion-side-menu-content>
+
+    <!-- Listing of chat groups -->
+    <ion-side-menu side="left">
+      <ion-header-bar class="bar bar-subheader">
+        <h2 class="title">Groups</h2>
+      </ion-header-bar>
+      <ion-content overflow-scroll="true" padding="false" style="background: url(img/1z7jKuKcT8ymU7yxKmba_background.png) no-repeat center;" class="has-header">
+        <label class="item item-input">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="search" placeholder="Search Groups">
+        </label>
+        <ion-list>
+          <ion-item ng-repeat="group in groups" ng-click="selectGroup(group, $index)" class="item-thumbnail-left" ng-class="{active: activeGroup == group}">
+            <img src={{group.imgSrc}}>
+            <h3>{{group.name}}</h3>
+            <p>{{group.lastMessage}}</p>
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
+  </ion-side-menus>
 </ion-view>
