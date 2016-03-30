@@ -4,7 +4,7 @@ angular.module('app.controllers', ['ionic'])
 
 })
    
-.controller('chatCtrl', function($scope, $state, $ionicActionSheet, $ionicSideMenuDelegate) {
+.controller('chatCtrl', function($scope, $state, $ionicActionSheet, $ionicSideMenuDelegate, $ionicPopup) {
   // Set up chat groups with messages
   $scope.groups = [
     { name: 'Web App Group',
@@ -86,8 +86,34 @@ angular.module('app.controllers', ['ionic'])
         $ionicActionSheet.hide();
       },
       buttonClicked: function(index) {
-        $state.go('postMessage');
-        $ionicActionSheet.hide();
+        if(index == 0) {
+          $state.go('postMessage');
+          $ionicActionSheet.hide();
+        } else {
+          var callPopup = $ionicPopup.show({
+            title: 'Call Author',
+            template: 'Calling Nigel...',
+            buttons: [
+              { text: 'Cancel' }
+            ]
+          });
+        }
+        return true;
+      },
+      destructiveButtonClicked: function() {
+        var deletePopup = $ionicPopup.confirm({
+          title: 'Delete Message?',
+          template: 'Are you sure you want to delete this message?'
+        });
+
+        deletePopup.then(function(res) {
+          if (res) {
+            console.log('Post deleted');
+          } else {
+            console.log('Post not deleted');
+          }
+        });
+        
         return true;
       }
     });
