@@ -26,16 +26,30 @@ angular.module('app.controllers', ['ionic'])
     },
     { name: 'CS506 Project 1',
       imgSrc: "img/AKScFVblSK5iHpV6pstq_Drawing.png",
-      lastMessage: "We have a quiz tomorrow.",
+      lastMessage: "Is everyone's GitHub accounts working?",
       messages: [
         { user: 'Sven', content: "Is everyone's GitHub accounts working?" }
       ]
     },
     { name: 'CS302 Class Chat',
       imgSrc: "img/1OqyVb4XQz6WYCPraFqR_Lab.jpg",
-      lastMessage: "We have a quiz tomorrow.",
+      lastMessage: "I believe it is due one week from today",
       messages: [
         { user: 'Matt', content: "I believe it is due one week from today" }
+      ]
+    },
+    { name: 'CS302 Group Chat',
+      imgSrc: "img/tklIc2TaTMGodAGytjz7_Barry.jpg",
+      lastMessage: "I'll meet you in the CS lobby at 5",
+      messages: [
+        { user: 'Taylor', content: "I'll meet you in the CS lobby at 5" }
+      ]
+    },
+    { name: 'UW Programming Help',
+      imgSrc: "img/5uhMge7TTyenmgf0lnzl_Tiki.jpg",
+      lastMessage: "I think Node.JS will work better than Angular",
+      messages: [
+        { user: 'Tiki', content: "I think Node.JS will work better than Angular" }
       ]
     }
   ];
@@ -173,7 +187,7 @@ angular.module('app.controllers', ['ionic'])
   $scope.activeForum = $scope.forums[0];
 })
 
-.controller('postMessageCtrl', function($scope) {
+.controller('postMessageCtrl', function($scope, $ionicPopup, $timeout) {
   // Set up forums
   $scope.forums = [
     { name: 'UW CS302 Help',
@@ -197,4 +211,15 @@ angular.module('app.controllers', ['ionic'])
       ]
     }
   ];
+
+  // Called to select a forum
+  $scope.selectForum = function(forum, index) {
+    var postPopup = $ionicPopup.show({
+      title: 'Post created'
+    });
+    $timeout(function() {
+      postPopup.close();
+    }, 1000);
+  };
+
 })

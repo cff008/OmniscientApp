@@ -1,7 +1,7 @@
 <ion-view title="Choose Forum">
   <ion-content overflow-scroll="true" padding="true" style="background: url(img/y5o6iD0rShefgzyB8Q89_background.png) no-repeat center;" class="has-header">
     <ion-list>
-      <ion-item ng-repeat="forum in forums" ng-click="selectForum(forum, $index)">
+      <ion-item ng-repeat="forum in forums" ng-click="selectForum(forum, $index)" ui-sref="tabsController.chat">
         <h3>{{forum.name}}</h3>
       </ion-item>
     </ion-list>
