@@ -2,9 +2,18 @@
   <ion-header-bar class="bar bar-subheader">
     <h2 class="title">{{activeForum.name}}</h2>
   </ion-header-bar>
-  <ion-content overflow-scroll="true" padding="true" style="background: url(img/dTAXonssS5fuH6Ix4d3x_background.png) no-repeat center;" class="has-header">
+  <ion-content scroll="true" overflow-scroll="true" padding="true" style="background: url(img/dTAXonssS5fuH6Ix4d3x_background.png) no-repeat center;" class="has-header">
+    <form class="list">
+      <label class="item item-input">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" placeholder="Search Posts">
+      </label>
+    </form>
     <ion-list>
-      <ion-item ng-repeat="post in activeForum.posts">
+      <ion-item ng-repeat="post in activeForum.posts" ng-click="selectPost(post, $index)" ng-class="{active: activePost == post}">
+        <button class="button button-calm" ng-click="postOptions(post)">
+          <i class="icon ion-navicon"></i>
+        </button>
         {{post.user}}: {{post.content}}
       </ion-item>
     </ion-list>

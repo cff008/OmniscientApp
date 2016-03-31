@@ -77,7 +77,8 @@ angular.module('app.controllers', ['ionic'])
     var hideSheet = $ionicActionSheet.show({
       buttons: [
         { text: 'Post to Forum' },
-        { text: 'Call Author' }
+        { text: 'Call Author' },
+        { text: 'View Author Profile' }
       ],
       destructiveText: 'Delete',
       titleText: 'Follow-up on message',
@@ -89,7 +90,7 @@ angular.module('app.controllers', ['ionic'])
         if(index == 0) {
           $state.go('postMessage');
           $ionicActionSheet.hide();
-        } else {
+        } else if (index == 1) {
           var callPopup = $ionicPopup.show({
             title: 'Call Author',
             template: 'Calling Nigel...',
@@ -97,20 +98,25 @@ angular.module('app.controllers', ['ionic'])
               { text: 'Cancel' }
             ]
           });
+        } else {
+          $state.go('tabsController.myProfile');
+          $ionicActionSheet.hide();
         }
         return true;
       },
       destructiveButtonClicked: function() {
         var deletePopup = $ionicPopup.confirm({
           title: 'Delete Message?',
-          template: 'Are you sure you want to delete this message?'
+          template: 'Are you sure you want to delete this message?',
+          okType: 'button-default',
+          cancelType: 'button-calm'
         });
 
         deletePopup.then(function(res) {
           if (res) {
-            console.log('Post deleted');
+            console.log('Message deleted');
           } else {
-            console.log('Post not deleted');
+            console.log('Message not deleted');
           }
         });
         
@@ -186,7 +192,7 @@ angular.module('app.controllers', ['ionic'])
 
 })
 
-.controller('postCtrl', function($scope) {
+.controller('postCtrl', function($scope, $state, $ionicActionSheet, $ionicPopup) {
   // Set up forums with posts
   $scope.forums = [
     { name: 'UW CS302 Help',
@@ -210,7 +216,63 @@ angular.module('app.controllers', ['ionic'])
       ]
     }
   ];
+
   $scope.activeForum = $scope.forums[0];
+
+  // Called to select a post
+  $scope.selectPost = function(post, index) {
+    $scope.activePost = post;
+  };
+
+  // Called to post a message to a forum
+  $scope.postOptions = function(post) {
+    var hideSheet = $ionicActionSheet.show({
+      buttons: [
+        { text: 'Call Author' },
+        { text: 'View Author Profile' }
+      ],
+      destructiveText: 'Delete',
+      titleText: 'Post Options',
+      cancelText: 'Cancel',
+      cancel: function() {
+        $ionicActionSheet.hide();
+      },
+      buttonClicked: function(index) {
+        if(index == 0) {
+          var callPopup = $ionicPopup.show({
+            title: 'Call Author',
+            template: 'Calling Brie...',
+            buttons: [
+              { text: 'Cancel' }
+            ]
+          });
+        } else {
+          $state.go('tabsController.myProfile');
+          $ionicActionSheet.hide();
+        }
+        return true;
+      },
+      destructiveButtonClicked: function() {
+        var deletePopup = $ionicPopup.confirm({
+          title: 'Delete Post?',
+          template: 'Are you sure you want to delete this post?',
+          okType: 'button-default',
+          cancelType: 'button-calm'
+        });
+
+        deletePopup.then(function(res) {
+          if (res) {
+            console.log('Post deleted');
+          } else {
+            console.log('Post not deleted');
+          }
+        });
+        
+        return true;
+      }
+    });
+  };
+
 })
 
 .controller('postMessageCtrl', function($scope, $ionicPopup, $timeout) {
