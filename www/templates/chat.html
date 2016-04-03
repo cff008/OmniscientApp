@@ -15,6 +15,7 @@
         </label>
         <ion-list>
           <ion-item ng-repeat="message in activeGroup.messages" ng-click="selectMessage(message, $index)" ng-class="{active: activeMessage == message}">
+            <p>{{message.timestamp}}</p>
             <button class="button button-calm" ng-click="followUp(message)">
               <i class="icon ion-navicon"></i>
             </button>
