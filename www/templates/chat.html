@@ -44,7 +44,7 @@
           <input type="search" placeholder="Search Groups">
         </label>
         <ion-list>
-          <ion-item ng-repeat="group in groups" ng-click="selectGroup(group, $index)" class="item-thumbnail-left" ng-class="{active: activeGroup == group}">
+          <ion-item ng-repeat="group in groups" ng-click="selectGroup(group, $index)" class="item-thumbnail-left" ng-class="{active: activeGroup == group}" menu-toggle="left">
             <img src={{group.imgSrc}}>
             <h3>{{group.name}}</h3>
             <p>{{group.lastMessage}}</p>
